@@ -10,7 +10,7 @@ import './hangman.css'
 let mistakes = 0
 export default class Image extends Component {
   render() {
-    return <div>
+    return <div style={{ textAlign: "center" }}>
       {(() => {
         switch (mistakes) {
           case 0:

@@ -1,3 +1,5 @@
 .hangman{
     height: 300px;
+    border: 3px;
+    border-style: dashed;
   }
