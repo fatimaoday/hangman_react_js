@@ -27,8 +27,40 @@ export default class Hangman extends Component {
       .catch((error) => console.log(error));
   }
 
+  guessedWord() {
+    return this.state.word.split("").map(letter =>{
+      if( this.state.guessed.includes(letter) ) return letter
+      else return " _ "
+    });
+  }
+
+  handleGuess = e => {
+    // get the values of the clicked letter an
+    let value ="e" 
+    if (this.state.word.includes(value)){
+      this.setState({
+        guessed: [...(this.state.guessed),value],
+      });
+    }else{
+      this.setState({
+        counter: this.state.counter + 1
+      });
+    }
+
+    
+  }
+
   resetButton = () => {
-    //Reload the page
+    axios
+      .get("https://random-word-api.herokuapp.com/word?number=1")
+      .then((result) =>
+        this.setState({
+          word: result.data[0],
+          counter: 0,
+          guessed: []
+        })
+      )
+      .catch((error) => console.log(error));
   };
 
   render() {
@@ -40,8 +72,10 @@ export default class Hangman extends Component {
         </div>
         <div>
           <p>Guess the Word:</p>
-          <p>{/*The word we need to guess*/}</p>
-          <Keyboard />
+          <p>{!(this.state.counter >= 6) ? this.guessedWord() : this.state.word}</p>
+          {(this.guessedWord().join("") === this.state.word)? "YOU WON !! ":null}
+          {(this.state.counter >= 6) ? "YOU LOST !!":<Keyboard/>}
+          <br/>
           <button onClick={this.resetButton}>Reset</button>
         </div>
       </div>
