@@ -68,7 +68,7 @@ export default class Hangman extends Component {
       <div>
         <h1>Hangman Game</h1>
         <div>
-          <Image />
+          <Image mistakes={this.state.counter}/>
         </div>
         <div>
           <p>Guess the Word:</p>
