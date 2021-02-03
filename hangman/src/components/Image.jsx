@@ -7,12 +7,12 @@ import hangman4 from './hangman images/hangman4.png';
 import hangman5 from './hangman images/hangman5.png';
 import hangman6 from './hangman images/hangman6.png';
 import './hangman.css'
-let mistakes = this.props.mistakes
+
 export default class Image extends Component {
   render() {
     return <div style={{ textAlign: "center" }}>
       {(() => {
-        switch (mistakes) {
+        switch (this.props.mistakes) {
           case 0:
             return (
               <img className='hangman' src={hangman0} alt="hangman" />

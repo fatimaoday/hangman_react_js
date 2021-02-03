@@ -28,26 +28,26 @@ export default class Hangman extends Component {
   }
 
   guessedWord() {
-    return this.state.word.split("").map(letter =>{
-      if( this.state.guessed.includes(letter) ) return letter
+    return this.state.word.split("").map(letter => {
+      if (this.state.guessed.includes(letter)) return letter
       else return " _ "
     });
   }
 
   handleGuess = e => {
     // get the values of the clicked letter an
-    let value ="e" 
-    if (this.state.word.includes(value)){
+    let value = "e"
+    if (this.state.word.includes(value)) {
       this.setState({
-        guessed: [...(this.state.guessed),value],
+        guessed: [...(this.state.guessed), value],
       });
-    }else{
+    } else {
       this.setState({
         counter: this.state.counter + 1
       });
     }
 
-    
+
   }
 
   resetButton = () => {
@@ -68,14 +68,14 @@ export default class Hangman extends Component {
       <div>
         <h1>Hangman Game</h1>
         <div>
-          <Image mistakes={this.state.counter}/>
+          <Image mistakes={this.state.counter} />
         </div>
         <div>
           <p>Guess the Word:</p>
           <p>{!(this.state.counter >= 6) ? this.guessedWord() : this.state.word}</p>
-          {(this.guessedWord().join("") === this.state.word)? "YOU WON !! ":null}
-          {(this.state.counter >= 6) ? "YOU LOST !!":<Keyboard/>}
-          <br/>
+          {(this.guessedWord().join("") === this.state.word) ? "YOU WON !! " : null}
+          {(this.state.counter >= 6) ? "YOU LOST !!" : <Keyboard />}
+          <br />
           <button onClick={this.resetButton}>Reset</button>
         </div>
       </div>
