@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Image from "./Image";
-import Keyboard from "./Keyboard";
+import '../App.css';
+// import Keyboard from "./Keyboard";
 const axios = require("axios");
 
 export default class Hangman extends Component {
@@ -12,6 +13,8 @@ export default class Hangman extends Component {
       counter: 0,
       guessed: []
     };
+
+    
   }
 
   componentDidMount() {
@@ -63,11 +66,7 @@ export default class Hangman extends Component {
       .catch((error) => console.log(error));
   };
 
-  handleClick=e => {
-    let letter = e.target.value;
-    this.setState(st => ({
-      guessed: st.guessed.add(letter),
-    }))};
+  
 
   generateButtons(){
     const letters = [
@@ -76,7 +75,7 @@ export default class Hangman extends Component {
     ];
     const keyboard = letters.map((letter)=>
     <button className="buttons"
-    onClick={this.handleClick}
+    onClick={this.handleGuess}
     // disabled={this.state.guessed.has(letter)}
     value={letter}>
         {letter}
