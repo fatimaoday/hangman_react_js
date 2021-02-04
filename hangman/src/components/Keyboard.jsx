@@ -7,7 +7,6 @@ export default class Keyboard extends Component {
         this.state={
             mistakes: 0,
             guessed: new Set([]),
-            clickedBefore:false,
         }
     }
     handleClick=e => {
@@ -25,7 +24,6 @@ export default class Keyboard extends Component {
     <button className="buttons"
     onClick={this.handleClick}
     disabled={this.state.guessed.has(letter)}
-    
     value={letter}>
         {letter}
     </button>)

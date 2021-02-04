@@ -57,13 +57,41 @@ export default class Hangman extends Component {
         this.setState({
           word: result.data[0],
           counter: 0,
-          guessed: []
+          guessed: new Set([])
         })
       )
       .catch((error) => console.log(error));
   };
 
+  handleClick=e => {
+    let letter = e.target.value;
+    this.setState(st => ({
+      guessed: st.guessed.add(letter),
+    }))};
+
+  generateButtons(){
+    const letters = [
+      "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s",
+      "t","u","v","w","x","y","z",
+    ];
+    const keyboard = letters.map((letter)=>
+    <button className="buttons"
+    onClick={this.handleClick}
+    // disabled={this.state.guessed.has(letter)}
+    value={letter}>
+        {letter}
+    </button>)
+    return (
+      <div>
+        <h1>Keyboard</h1>
+        {keyboard}
+      </div>
+    );
+  }
+    
+    
   render() {
+    const keyboard = this.generateButtons()
     return (
       <div>
         <h1>Hangman Game</h1>
@@ -74,7 +102,7 @@ export default class Hangman extends Component {
           <p>Guess the Word:</p>
           <p>{!(this.state.counter >= 6) ? this.guessedWord() : this.state.word}</p>
           {(this.guessedWord().join("") === this.state.word) ? "YOU WON !! " : null}
-          {(this.state.counter >= 6) ? "YOU LOST !!" : <Keyboard />}
+          {(this.state.counter >= 6) ? "YOU LOST !!" : <p>{keyboard}</p>}
           <br />
           <button onClick={this.resetButton}>Reset</button>
         </div>
