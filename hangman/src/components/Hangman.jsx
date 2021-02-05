@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Image from "./Image";
 import "../App.css";
+import './keyboard.css'
+import chalkbutton from './hangman_images/chalkbutton.png';
+
 // import Keyboard from "./Keyboard";
 const axios = require("axios");
 
@@ -37,7 +40,7 @@ export default class Hangman extends Component {
 
   handleGuess = (e) => {
     // get the values of the clicked letter an
-    let value = e.target.value;
+    let value = e
     if (this.state.word.includes(value)) {
       this.setState({
         guessed: [...this.state.guessed, value],
@@ -60,19 +63,22 @@ export default class Hangman extends Component {
       "p","q","r","s","t","u","v","w","x","y","z",
     ];
     const keys = letters.map((letter) => (
-      
+    
       <button
+        key={letter}
         className="buttons"
-        onClick={this.handleGuess}
+        onClick={() => this.handleGuess(letter)}
         disabled={this.state.guessed.includes(letter)}
         value={letter}
-      >
+      ><div>
+        <img className="button-img" src={chalkbutton} alt='buttons'></img>
+
         {letter}
+        </div>
       </button>
     ));
     return (
-      <div>
-        
+      <div className='buttons-container'>
         {keys}
       </div>
     );
@@ -81,25 +87,24 @@ export default class Hangman extends Component {
   render() {
     const keyboard = this.generateButtons();
     return (
-      <div>
+      <div className='main'> 
         <div>
           <Image mistakes={this.state.counter} />
         </div>
-        <div>
-          <p>Guess the Word:</p>
-          <p>
+        <div className='keyboard'>
+            <p>
             {!(this.state.counter >= 6) ? this.guessedWord() : this.state.word}
-          </p>
+            </p>
           {this.guessedWord().join("") === this.state.word
             ? "YOU WON !! "
             : null}
           {this.state.counter >= 6 ? (
             "YOU LOST !!"
           ) : (
-            <p>{keyboard}</p>
+            <div>{keyboard}</div>
           )}
-          <br />
-          <button className ="buttons" onClick={this.resetButton}>Play Again</button>
+          <button className ="reset" onClick={this.resetButton}>Play Again</button>
+          <div className='counter'>Mistakes: {this.state.counter}/6</div>
         </div>
       </div>
     );

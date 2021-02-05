@@ -18,10 +18,9 @@
   border: none;
   border-radius: 50%;
 }
-.buttons div{
-  background-image: url(./hangman_images/chalkbutton.png);
-}
+
 .buttons[disabled]{
-  background-color: lightgray;
+  background-color: transparent;
   cursor: not-allowed;
+  opacity: 25%;
 }
