@@ -82,7 +82,6 @@ export default class Hangman extends Component {
     const keyboard = this.generateButtons();
     return (
       <div>
-        <h1>Hangman Game</h1>
         <div>
           <Image mistakes={this.state.counter} />
         </div>
