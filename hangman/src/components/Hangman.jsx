@@ -15,6 +15,8 @@ export default class Hangman extends Component {
       counter: 0,
       guessed: []
     };
+
+
   }
 
   componentDidMount() {
