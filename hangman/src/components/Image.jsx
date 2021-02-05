@@ -1,16 +1,17 @@
 import React, { Component } from "react";
-import hangman0 from './hangman images/hangman0.png';
-import hangman1 from './hangman images/hangman1.png';
-import hangman2 from './hangman images/hangman2.png';
-import hangman3 from './hangman images/hangman3.png';
-import hangman4 from './hangman images/hangman4.png';
-import hangman5 from './hangman images/hangman5.png';
-import hangman6 from './hangman images/hangman6.png';
+import hangman0 from './hangman_images/hangman0.png';
+import hangman1 from './hangman_images/hangman1.png';
+import hangman2 from './hangman_images/hangman2.png';
+import hangman3 from './hangman_images/hangman3.png';
+import hangman4 from './hangman_images/hangman4.png';
+import hangman5 from './hangman_images/hangman5.png';
+import hangman6 from './hangman_images/hangman6.png';
+
 import './hangman.css'
 
 export default class Image extends Component {
   render() {
-    return <div style={{ textAlign: "center" }}>
+    return <div style={{ textAlign: "center" }}><h2>Hangman Game</h2>
       {(() => {
         switch (this.props.mistakes) {
           case 0:

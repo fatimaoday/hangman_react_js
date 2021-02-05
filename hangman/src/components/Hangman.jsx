@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Image from "./Image";
-import Keyboard from "./Keyboard";
+import chalkbutton from './hangman_images/chalkbutton.png';
+import './keyboard.css'
+
+
 const axios = require("axios");
 
 export default class Hangman extends Component {
@@ -36,7 +39,8 @@ export default class Hangman extends Component {
 
   handleGuess = e => {
     // get the values of the clicked letter an
-    let value = "e"
+    let value = e
+    console.log(value)
     if (this.state.word.includes(value)) {
       this.setState({
         guessed: [...(this.state.guessed), value],
@@ -51,60 +55,58 @@ export default class Hangman extends Component {
   }
 
   resetButton = () => {
-    axios
-      .get("https://random-word-api.herokuapp.com/word?number=1")
-      .then((result) =>
-        this.setState({
-          word: result.data[0],
-          counter: 0,
-          guessed: new Set([])
-        })
-      )
-      .catch((error) => console.log(error));
+    this.componentDidMount();
   };
 
-  handleClick=e => {
+  handleClick = e => {
     let letter = e.target.value;
     this.setState(st => ({
       guessed: st.guessed.add(letter),
-    }))};
+    }))
+  };
 
-  generateButtons(){
+  generateButtons() {
     const letters = [
-      "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s",
-      "t","u","v","w","x","y","z",
+      "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
+      "t", "u", "v", "w", "x", "y", "z",
     ];
-    const keyboard = letters.map((letter)=>
-    <button className="buttons"
-    onClick={this.handleClick}
-    // disabled={this.state.guessed.has(letter)}
-    value={letter}>
-        {letter}
-    </button>)
+    const keyboard = letters.map((letter) =>
+      <div key={letter}>
+
+        <button className="buttons"
+
+          onClick={() => this.handleGuess(letter)}
+          // disabled={this.state.guessed.has(letter)}
+          value={letter}>
+          <div>
+            <img className="button-img" src={chalkbutton} alt='buttons'></img>
+            {letter}
+          </div>
+
+        </button>
+
+      </div>)
     return (
-      <div>
-        <h1>Keyboard</h1>
+      <div className='buttons-container'>
         {keyboard}
       </div>
     );
   }
-    
-    
+
+
   render() {
     const keyboard = this.generateButtons()
     return (
-      <div>
-        <h1>Hangman Game</h1>
+      <div className='main'>
         <div>
           <Image mistakes={this.state.counter} />
         </div>
-        <div>
-          <p>Guess the Word:</p>
+        <div className='keyboard'>
           <p>{!(this.state.counter >= 6) ? this.guessedWord() : this.state.word}</p>
           {(this.guessedWord().join("") === this.state.word) ? "YOU WON !! " : null}
           {(this.state.counter >= 6) ? "YOU LOST !!" : <p>{keyboard}</p>}
-          <br />
-          <button onClick={this.resetButton}>Reset</button>
+          <button className='reset' onClick={this.resetButton}>Reset</button>
+          <div className='counter'>Mistakes: {this.state.counter}/6</div>
         </div>
       </div>
     );
